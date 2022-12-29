@@ -25,9 +25,9 @@ jobs:
         git merge master
     - name: Archive Docc
       run: |
-        xcodebuild clean docbuild -scheme MSGLayout \
+        xcodebuild clean docbuild -scheme Moordinator \
         -destination generic/platform=iOS \
-        OTHER_DOCC_FLAGS="--transform-for-static-hosting --hosting-base-path MSGLayout --output-path docs"
+        OTHER_DOCC_FLAGS="--transform-for-static-hosting --hosting-base-path Moordinator --output-path docs"
 
     - name: git commit & push
       run: |
