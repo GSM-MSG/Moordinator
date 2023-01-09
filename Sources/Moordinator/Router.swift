@@ -5,7 +5,7 @@ public protocol Router {
     var initialPath: any RoutePath { get }
 }
 
-extension Router {
+public extension Router {
     var initialPath: any RoutePath {
         NoneRoutePath()
     }
