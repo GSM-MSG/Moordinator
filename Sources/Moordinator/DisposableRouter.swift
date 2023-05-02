@@ -1,7 +1,7 @@
 import Combine
 
 public final class DisposableRouter: Router {
-    public var route: PassthroughSubject<RoutePath, Never> = .init()
+    public var route: PassthroughSubject<any RoutePath, Never> = .init()
     
     public var initialPath: any RoutePath {
         singlePath
