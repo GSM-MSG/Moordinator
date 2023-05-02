@@ -2,13 +2,12 @@ import UIKit
 import Combine
 import Moordinator
 
-final class MainViewController: UIViewController {
+final class MainViewController: UIViewController, Router {
+    var route: PassthroughSubject<any RoutePath, Never> = .init()
     private let button = UIButton()
-    private let router: any Router
     var bag = Set<AnyCancellable>()
 
-    public init(router: any Router) {
-        self.router = router
+    public init() {
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,6 +28,6 @@ final class MainViewController: UIViewController {
     }
     
     @objc func buttonDidTap(_ sender: UIButton) {
-        self.router.route.send(ExRoutePath.sub)
+        self.route.send(ExRoutePath.sub)
     }
 }

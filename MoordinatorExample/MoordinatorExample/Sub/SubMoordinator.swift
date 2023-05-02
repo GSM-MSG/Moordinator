@@ -4,22 +4,23 @@ import UIKit
 
 final class SubMoordinator: Moordinator {
     private let rootVC = UINavigationController()
-    let router: any Router = SubRouter()
 
     var root: Presentable {
         rootVC
     }
 
-    func route(to path: RoutePath) -> MoordinatorContributors {
+    func route(to path: any RoutePath) -> MoordinatorContributors {
         guard let path = path as? ExRoutePath else { return .none }
         switch path {
         case .sub:
-            let vc = SubViewController(router: router)
+            let vc = SubViewController()
             rootVC.setViewControllers([vc], animated: true)
+            return .one(.contribute(withNextPresentable: vc, withNextRouter: vc))
 
         case .subDetail:
-            let vc = SubDetailViewController(router: router)
+            let vc = SubDetailViewController()
             rootVC.pushViewController(vc, animated: true)
+            return .one(.contribute(withNextPresentable: vc, withNextRouter: vc))
 
         case .main:
             return .one(.forwardToParent(with: ExRoutePath.main))

@@ -1,11 +1,10 @@
+import Combine
 import UIKit
 import Moordinator
 
-final class SubDetailViewController: UIViewController {
-    private let router: any Router
-
-    public init(router: any Router) {
-        self.router = router
+final class SubDetailViewController: UIViewController, Router {
+    var route: PassthroughSubject<any RoutePath, Never> = .init()
+    public init() {
         super.init(nibName: nil, bundle: nil)
     }
     

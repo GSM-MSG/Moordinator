@@ -5,6 +5,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
     private let moordinatorWorker = MoordinatorWorker()
+    private let appRouter = AppRouter()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -13,7 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: scene)
         let rootMoordinator = RootMoordinator(window: window)
-        moordinatorWorker.coordinate(moordinator: rootMoordinator)
+        moordinatorWorker.coordinate(moordinator: rootMoordinator, with: appRouter)
         self.window = window
     }
 

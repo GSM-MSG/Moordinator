@@ -9,7 +9,6 @@ final class RootMoordinator: Moordinator {
         let launchScreen = launchScreenStoryboard.instantiateViewController(withIdentifier: "LaunchScreen")
         return launchScreen
     }()
-    let router: any Router = RootRouter()
 
     var root: Presentable {
         rootVC
@@ -21,7 +20,7 @@ final class RootMoordinator: Moordinator {
         window.makeKeyAndVisible()
     }
 
-    func route(to path: RoutePath) -> MoordinatorContributors {
+    func route(to path: any RoutePath) -> MoordinatorContributors {
         guard let path = path as? ExRoutePath else { return .none }
         switch path {
         case .main:
@@ -36,7 +35,10 @@ final class RootMoordinator: Moordinator {
                     completion: nil
                 )
             }
-            return .one(.contribute(mainMoordinator))
+            return .one(.contribute(
+                withNextPresentable: mainMoordinator,
+                withNextRouter: DisposableRouter(singlePath: ExRoutePath.main)
+            ))
 
         case .sub:
             let subMoordinator = SubMoordinator()
@@ -50,7 +52,10 @@ final class RootMoordinator: Moordinator {
                     completion: nil
                 )
             }
-            return .one(.contribute(subMoordinator))
+            return .one(.contribute(
+                withNextPresentable: subMoordinator,
+                withNextRouter: DisposableRouter(singlePath: ExRoutePath.sub)
+            ))
             
         default:
             return .none
