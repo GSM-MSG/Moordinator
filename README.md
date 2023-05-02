@@ -46,7 +46,7 @@ To integrate `Moordinator` into your Xcode project using Swift Package Manager, 
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/GSM-MSG/Moordinator.git", .upToNextMajor(from: "1.1.1"))
+    .package(url: "https://github.com/GSM-MSG/Moordinator.git", .upToNextMajor(from: "2.0.0"))
 ]
 ```
 
@@ -69,19 +69,6 @@ enum ExRoutePath: RoutePath {
 ```
 
 ```swift
-// create a router
-import Combine
-import Moordinator
-
-final class MainRouter: Router {
-    var route: PassthroughSubject<any RoutePath, Never> = .init()
-    var initialPath: any RoutePath {
-        ExRoutePath.main
-    }
-}
-```
-
-```swift
 // create a moordinator
 import Moordinator
 import Combine
@@ -89,7 +76,6 @@ import UIKit
 
 final class MainMoordinator: Moordinator {
     private let rootVC = UINavigationController()
-    let router: any Router = MainRouter()
 
     var root: Presentable {
         rootVC
@@ -102,6 +88,7 @@ final class MainMoordinator: Moordinator {
           case .main:
               let vc = UIViewController()
               rootVC.setViewControllers([vc], animated: true)
+              return .one(.contribute(withNextPresentable: vc, withNextRouter: vc))
         }
         return .none
     }
