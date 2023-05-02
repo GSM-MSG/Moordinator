@@ -57,7 +57,9 @@ public final class MoordinatorWorker {
             }
             .store(in: &bag)
     }
+}
 
+private extension MoordinatorWorker {
     private func performSideEffect(contributor: MoordinatorContributor) {
         switch contributor {
         case let .contribute(presentable, router):
