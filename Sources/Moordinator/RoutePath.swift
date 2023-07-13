@@ -2,4 +2,4 @@ import Foundation
 
 public protocol RoutePath {}
 
-struct NoneRoutePath: RoutePath {}
+public struct NoneRoutePath: RoutePath {}
